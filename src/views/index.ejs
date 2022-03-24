@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/uploadFile">Upload</a></li>
+        </ul>
+    </div>
+
+    <h2>Hoverable Table</h2>
+    <table>
+        <% if(dataApi.length===0) { %>
+            <h1>No data</h1>
+            <% } else { %>
+                <tr>
+                    <th>Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Action</th>
+                </tr>
+                <% } %>
+                    <% for(let i=0; i < dataApi.length; i++){ %>
+                        <tr>
+                            <td>
+                                <%= dataApi[i].id %>
+                            </td>
+                            <td>
+                                <%= dataApi[i].firstName %>
+                            </td>
+                            <td>
+                                <%= dataApi[i].lastName %>
+                            </td>
+                            <td style="display: flex; gap: 15px;">
+                                <button>
+                                    <a href="/detail/user/<%= dataApi[i].id %>">Detail</a>
+                                </button>
+                                <form action="/edit-user/<%= dataApi[i].id %>" method="get">
+                                    <button type="submit">Edit</button>
+                                </form>
+                                <form action="/detele-user" method="post">
+                                    <input type="text" name="id" value="<%= dataApi[i].id %>" hidden>
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% } %>
+    </table>
+
+    <div class="container">
+        <h3>Create User</h3>
+        <div class="content">
+            <form action="/create-new-user" method="post">
+                <div>
+                    <label for="">First Name</label>
+                    <input type="text" name="firstName">
+                </div>
+                <div>
+                    <label for="">Last Name</label>
+                    <input type="text" name="lastName">
+                </div>
+                <div>
+                    <label for="">Email</label>
+                    <input type="email" name="email">
+                </div>
+                <div>
+                    <label for="">Address</label>
+                    <input type="text" name="address">
+                </div>
+                <select name="sex">
+                    <option value="male">male</option>
+                    <option value="female">female</option>
+                </select>
+                <div>
+                    <button type="submit" class="btn-submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>
